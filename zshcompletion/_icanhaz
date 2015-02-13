@@ -1,0 +1,19 @@
+#compdef icanhaz
+
+function _icanhaz() {
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments  '1: :->command' \
+                '*: :->execute'
+
+    case $state in
+    command)
+        icmds=$(icanhaz -l)
+        _arguments "1:Commands:($icmds)"
+    ;;
+    *)
+        _files
+    esac
+}
+_icanhaz "$@"
