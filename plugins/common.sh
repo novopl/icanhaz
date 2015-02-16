@@ -10,12 +10,23 @@ CLEANPTTRNS=(
     "*~"
     "*swp"
 )
+CLEANEXCL=(
+)
 #----------------------------------------------------------------------------//
 function cmd_clean() {
     sysmsg "CLEANIN DIS SHIT"
+    local exclude=''
+
+    for expttrn in "${CLEANEXCL[@]}"; do
+        exclude="$exclude -not -iname \"$expttrn\""
+    done
+
+
     for pttrn in "${CLEANPTTRNS[@]}"; do
-        #sysmsg "  - Cleaning \"${pttrn}\""
-        rm -rf $(find -L -iname "${pttrn}")
+        findopts="-L -iname \"${pttrn}\" $exclude" 
+        sysmsg "  - Cleaning \"${pttrn}\""
+        dbgmsg "      \e[90mrm -rf \$(find $findopts)\e[0m"
+        rm -rf $(find $findopts)
     done
 }
 #----------------------------------------------------------------------------//
