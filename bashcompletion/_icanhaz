@@ -1,0 +1,17 @@
+
+function _icanhaz() {
+	local cur="${COMP_WORDS[COMP_CWORD]}"
+    compopt +o default
+
+    if [[ $COMP_CWORD -eq 1 ]]; then
+        icmds=$(icanhaz -l)
+		COMPREPLY=( $(compgen -W "${icmds}" -- ${cur}) )
+		return 0
+    else
+        compopt -o default
+        COMPREPLY=()
+		return 0
+    fi
+}
+
+complete -F _icanhaz icanhaz
