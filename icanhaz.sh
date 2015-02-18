@@ -1,14 +1,9 @@
-#!/bin/bash
-# Interface exposed to plugins/local configuration:
-# sysmsg() - print status message
-# dbgmsg() - print debug message (verbosity can be controlled)
-# 
 [ -z "$VERBOSE" ] && VERBOSE=0
+SYSDIR="$ICANHAZ_INSTALL_DIR"
+USERDIR="$HOME/.icanhaz"
 GLOBALCONF="/etc/icanhazrc"
 USERCONF=$(find ~ -maxdepth 1 -name "\.icanhazrc")
 LOCALCONF="icanhazrc"
-USERPLUGS="$HOME/.icanhaz/plugins"
-SYSPLUGS="/usr/share/icanhaz/plugins"
 declare -A ALL_CMDS
 
 # Load configuration
@@ -24,7 +19,7 @@ function dbgmsg() {
 }
 export -f sysmsg
 export -f dbgmsg
-
+export PATH="$USERDIR/bin:$ICANHAZ_INSTALL_DIR/bin:$PATH"
 
 
 #----------------------------------------------------------------------------//
@@ -43,8 +38,8 @@ function main() {
     done
     shift $((OPTIND-1))
 
-    load_plugins "${SYSPLUGS}"
-    load_plugins "${USERPLUGS}"
+    load_plugins "${SYSDIR}/plugins"
+    load_plugins "${USERDIR}/plugins"
     load_configuration
 
     case "$action" in
