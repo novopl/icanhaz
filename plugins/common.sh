@@ -22,19 +22,14 @@ function cmd_clean() {
     done
 
 
-    echo -e "\e[1mWorking dir: \e[0m$(pwd)"
     for pttrn in "${CLEANPTTRNS[@]}"; do
         files=$(find -L ./ -iname "\"$pttrn\"" $exclude)
         sysmsg "  - Cleaning \"${pttrn}\""
+        dbgmsg "     \e[1mWorking dir: \e[0m$(pwd)"
         dbgmsg "     \e[90mrm -rf \$(find -L ./ -iname "$pttrn" $exclude)\e[0m"
-        if [ -n "$files" ]; then
-            echo -e "\e[90m$files\e[0m"
-        fi
-        rm -rf $files
 
-        #find -L $(pwd) $findflt
-        #find -L ./ -iname "$pttrn" $exclude
-        #rm -rf $(find -L ./ -iname "$pttrn" $exclude)
+        [ -n "$files" ] && echo -e "\e[90m$files\e[0m"
+        rm -rf $files
     done
 }
 #----------------------------------------------------------------------------//
