@@ -1,9 +1,11 @@
+#!/bin/bash
 declare -A COMMANDZ
 COMMANDZ=(
     [devsrv]='cmd_gae_devsrv'
     [deploy]='cmd_gae_deploy'
 )
 export COMMANDZ
+
 
 #----------------------------------------------------------------------------//
 function cmd_gae_devsrv() {

@@ -18,15 +18,23 @@ function cmd_clean() {
     local exclude=''
 
     for expttrn in "${CLEANEXCL[@]}"; do
-        exclude="$exclude -not -iname \"$expttrn\""
+        exclude="$exclude -not -ipath \"$expttrn\""
     done
 
 
+    echo -e "\e[1mWorking dir: \e[0m$(pwd)"
     for pttrn in "${CLEANPTTRNS[@]}"; do
-        findopts="-L -iname \"${pttrn}\" $exclude" 
+        files=$(find -L ./ -iname "\"$pttrn\"" $exclude)
         sysmsg "  - Cleaning \"${pttrn}\""
-        dbgmsg "      \e[90mrm -rf \$(find $findopts)\e[0m"
-        rm -rf $(find $findopts)
+        dbgmsg "     \e[90mrm -rf \$(find -L ./ -iname "$pttrn" $exclude)\e[0m"
+        if [ -n "$files" ]; then
+            echo -e "\e[90m$files\e[0m"
+        fi
+        rm -rf $files
+
+        #find -L $(pwd) $findflt
+        #find -L ./ -iname "$pttrn" $exclude
+        #rm -rf $(find -L ./ -iname "$pttrn" $exclude)
     done
 }
 #----------------------------------------------------------------------------//
