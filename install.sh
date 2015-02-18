@@ -7,9 +7,11 @@ BASH_COMP_PATH='/etc/bash_completion.d/'
 
 if [ $# -eq 1 ] && [ $1 == 'uninstall' ]; then
     echo Uninstalling icanhaz
-    rm "$BIN_DIR/icanhaz"
+    rm -f "$BIN_DIR/icanhaz"
+    rm -rf "$INSTALL_DIR/bin"
     rm -rf "$INSTALL_DIR/plugins"
-    rmdir "$INSTALL_DIR"
+    rm -rf "$INSTALL_DIR/install.sh"
+    [ -d "INSTALL_DIR" ] && rmdir -p "$INSTALL_DIR"
 
     # Remove zsh autocompletion
     if [ -e "$ZSH_COMP_PATH/_icanhaz" ]; then
