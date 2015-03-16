@@ -39,8 +39,12 @@ def install_bower_deps(verbose):
     with open('bower.json') as fp:
         pkg = json.loads(fp.read())
 
-    deps  = sorted(pkg['dependencies'].items(), key=lambda x: x[0])
-    deps += sorted(pkg['devDependencies'].items(), key=lambda x: x[0])
+    deps = []
+    if 'dependencies' in pkg:
+        deps += sorted(pkg['dependencies'].items(), key=lambda x: x[0])
+    if 'devDependencies' in pkg:
+        deps += sorted(pkg['devDependencies'].items(), key=lambda x: x[0])
+
     for name, version in deps:
         ret = 1
         while ret != 0:

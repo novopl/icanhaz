@@ -17,8 +17,22 @@ function dbgmsg() {
         echo -e "\e[90m${now}\e[39m $@"
     fi
 }
+function dbgmsgv() {
+    if [ $VERBOSE -gt 1 ]; then
+        local now=$(date "+%I:%M:%S %p")
+        echo -e "\e[90m${now}\e[39m $@"
+    fi
+}
+function dbgmsgvv() {
+    if [ $VERBOSE -gt 2 ]; then
+        local now=$(date "+%I:%M:%S %p")
+        echo -e "\e[90m${now}\e[39m $@"
+    fi
+}
 export -f sysmsg
 export -f dbgmsg
+export -f dbgmsgv
+export -f dbgmsgvv
 export PATH="$USERDIR/bin:$ICANHAZ_INSTALL_DIR/bin:$PATH"
 
 

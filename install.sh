@@ -45,6 +45,8 @@ else
     cp -r ./bin/*       "$INSTALL_DIR/bin/"
     cp -r ./install.sh  "$INSTALL_DIR/"
 
+    chmod +rx -R "$INSTALL_DIR/bin"
+
     # Install zsh completion
     if [ -e "$ZSH_COMP_PATH" ]; then
         echo -e "Installing ZSH autocompletion into \e[1m$ZSH_COMP_PATH\e[0m"

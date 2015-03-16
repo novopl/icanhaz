@@ -29,7 +29,7 @@ function cmd_clean() {
         dbgmsg "     \e[90mEXCLUDE: $exclude\e[0m"
         dbgmsg "     \e[90mrm -rf \$(find -L ./ -iname "$pttrn" $exclude)\e[0m"
 
-        [ -n "$files" ] && echo -e "\e[90m$files\e[0m"
+        [ -n "$files" ] && dbgmsgv "\r\e[90m$files\e[0m"
         rm -rf $files
     done
 }
