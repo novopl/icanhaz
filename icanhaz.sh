@@ -107,7 +107,7 @@ function load_plugins() {
             done
         done
     else
-        echo -e "\e[1m$srcdir\e[0m does not exist"
+        dbgmsg "\e[1m$srcdir\e[0m does not exist"
     fi
 }
 #----------------------------------------------------------------------------//
